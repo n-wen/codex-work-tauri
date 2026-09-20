@@ -59,7 +59,7 @@ jobs:
           tagName: v__VERSION__
           releaseName: "Codex Work v__VERSION__"
           releaseBody: "从 Assets 下载对应架构的 dmg。Apple Silicon 用 darwin-arm64，Intel 用 darwin-x64。"
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
 
       - name: Upload artifacts
