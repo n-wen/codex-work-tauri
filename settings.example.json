@@ -1,0 +1,15 @@
+{
+  "providers": [
+    {
+      "id": "default",
+      "label": "默认",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKey": "sk-your-api-key-here",
+      "models": [
+        { "id": "mini", "label": "GPT-4o mini", "model": "gpt-4o-mini" },
+        { "id": "4o", "label": "GPT-4o", "model": "gpt-4o" }
+      ]
+    }
+  ],
+  "activeProviderId": "default"
+}

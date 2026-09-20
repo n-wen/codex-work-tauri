@@ -1,0 +1,30 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main", "preview", "preview-*"],
+  "webviews": ["main", "preview", "preview-*", "preview-chrome-*", "preview-content-*"],
+  "permissions": [
+    "core:default",
+    "core:event:default",
+    "core:webview:allow-create-webview-window",
+    "core:webview:allow-create-webview",
+    "core:webview:allow-webview-position",
+    "core:webview:allow-webview-size",
+    "core:webview:allow-set-webview-zoom",
+    "core:window:allow-close",
+    "core:window:allow-destroy",
+    "core:window:allow-show",
+    "core:window:allow-set-focus",
+    "core:window:allow-set-title",
+    "opener:default",
+    {
+      "identifier": "opener:allow-open-path",
+      "allow": [{ "path": "**" }]
+    },
+    "dialog:default",
+    "autostart:allow-enable",
+    "autostart:allow-disable",
+    "autostart:allow-is-enabled"
+  ]
+}

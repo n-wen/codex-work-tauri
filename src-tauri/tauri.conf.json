@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Codex Work",
+  "version": "0.1.0",
+  "identifier": "io.github.n-wen.codex-work",
+  "build": {
+    "beforeDevCommand": "node scripts/sync-codex-runtime.mjs && npm run dev:vite",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "node scripts/sync-codex-runtime.mjs && npm run build:frontend",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "Codex Work",
+        "width": 1280,
+        "height": 840,
+        "minWidth": 960,
+        "minHeight": 640
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**"]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [
+      "codex-runtime/**/*"
+    ],
+    "macOS": {
+      "signingIdentity": "-"
+    }
+  }
+}

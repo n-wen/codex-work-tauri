@@ -1,0 +1,72 @@
+name: macOS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+jobs:
+  build-macos:
+    name: ${{ matrix.npm_platform }}
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rust_target: aarch64-apple-darwin
+            npm_platform: darwin-arm64
+          - rust_target: x86_64-apple-darwin
+            npm_platform: darwin-x64
+    env:
+      CODEX_NPM_PLATFORM: ${{ matrix.npm_platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Use crates.io in CI
+        run: printf '[net]\ngit-fetch-with-cli = true\n' > src-tauri/.cargo/config.toml
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust_target }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+          key: ${{ matrix.rust_target }}
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build macOS app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODEX_NPM_PLATFORM: ${{ matrix.npm_platform }}
+        with:
+          args: --target ${{ matrix.rust_target }} --bundles app,dmg
+          createRelease: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          tagName: v__VERSION__
+          releaseName: "Codex Work v__VERSION__"
+          releaseBody: "从 Assets 下载对应架构的 dmg。Apple Silicon 用 darwin-arm64，Intel 用 darwin-x64。"
+          releaseDraft: true
+          prerelease: false
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-${{ matrix.npm_platform }}
+          path: |
+            src-tauri/target/${{ matrix.rust_target }}/release/bundle/dmg/*.dmg
+            src-tauri/target/${{ matrix.rust_target }}/release/bundle/macos/*.app
+          if-no-files-found: error

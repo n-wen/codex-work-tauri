@@ -1,0 +1,39 @@
+{
+  "name": "codex-work",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Codex app server desktop workbench (Tauri)",
+  "scripts": {
+    "postinstall": "node scripts/sync-codex-runtime.mjs",
+    "predev": "node scripts/sync-codex-runtime.mjs",
+    "prebuild": "node scripts/sync-codex-runtime.mjs",
+    "dev": "node scripts/dev-with-log.mjs",
+    "dev:tauri": "tauri dev",
+    "dev:vite": "vite",
+    "build": "tauri build",
+    "build:frontend": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "typecheck": "tsc --noEmit",
+    "test:codex-runtime": "node --test scripts/sync-codex-runtime.test.mjs"
+  },
+  "dependencies": {
+    "@openai/codex": "0.151.0",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
