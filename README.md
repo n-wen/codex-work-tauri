@@ -38,9 +38,9 @@ npm run dev
 
 ## GitHub Actions（macOS 打包）
 
-推送到 `main`、打 `v*` 标签，或在 Actions 里手动 **Run workflow**，会在 `macos-latest` 上分别打 **Apple Silicon**（`darwin-arm64`）和 **Intel**（`darwin-x64`）的 `.app` / `.dmg`。
+打 `v*` 标签（或在 Actions 里手动 **Run workflow**）会在 `macos-latest` 上分别打 **Apple Silicon**（`darwin-arm64`）和 **Intel**（`darwin-x64`）的 `.app` / `.dmg`。
 
-产物在 workflow 的 Artifacts。推送 `v*` 标签时还会创建 **draft Release**。未配置 Apple 开发者证书，使用 ad-hoc 签名；别人首次打开可能要「右键 → 打开」。
+产物挂到 GitHub Release。未配置 Apple 开发者证书，使用 ad-hoc 签名；别人首次打开可能要「右键 → 打开」。
 
 ## 配置
 

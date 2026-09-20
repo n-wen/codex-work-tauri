@@ -65,7 +65,7 @@ cargo test
 
 ## 发布构建
 
-macOS 可用 GitHub Actions 自动打包：`.github/workflows/macos.yml`。推送 `main`、手动 `workflow_dispatch`，或打 `v*` 标签。CI 会分别构建 `aarch64-apple-darwin` 与 `x86_64-apple-darwin`，并用 `CODEX_NPM_PLATFORM` 同步对应架构的 Codex CLI。产物上传为 Artifacts；`v*` 标签会创建 draft Release。
+macOS 可用 GitHub Actions 自动打包：`.github/workflows/macos.yml`。仅在打 `v*` 标签时自动跑（也可手动 `workflow_dispatch`）。CI 会分别构建 `aarch64-apple-darwin` 与 `x86_64-apple-darwin`，并用 `CODEX_NPM_PLATFORM` 同步对应架构的 Codex CLI。产物上传为 Artifacts，并创建 GitHub Release。
 
 本机发布仍是 `tauri build`。在目标操作系统上原生编译（跨编译还要交叉同步对应平台的 Codex vendor，见下文）。
 
